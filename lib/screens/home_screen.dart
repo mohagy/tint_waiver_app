@@ -343,6 +343,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     _buildSectionD(),
                     _buildExemptionsInfo(),
                     const SizedBox(height: 20),
+                    _buildTintTestingSites(),
+                    const SizedBox(height: 20),
                     _buildSectionE(),
                     _buildSignatureSection(),
                     const SizedBox(height: 30),
@@ -430,37 +432,76 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 12),
             const Text(
-              'Effective Date: January 1, 2026',
+              'NEW VEHICLE TINT RULES TAKE EFFECT: JANUARY 1, 2026',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.red),
             ),
+            const SizedBox(height: 8),
+            const Text(
+              'The Motor Vehicles and Road Traffic (Tint) Regulations 2025 is aimed to improve safety and fair enforcement across Guyana.',
+              style: TextStyle(fontSize: 11),
+            ),
+            const SizedBox(height: 12),
             const Divider(height: 20),
             const Text(
-              'TINT REGULATIONS:',
+              'KNOW THE LEGAL TINT LIMITS:',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
             const SizedBox(height: 8),
-            _bulletPoint('Front windscreen: No tint permitted, except for a visor that must not exceed 6 inches when measured from the top of the windscreen.'),
+            _bulletPoint('Front windscreen: No tint permitted (this regulation is strictly enforced).'),
             _bulletPoint('Front side windows (driver and front passenger): Minimum 25% VLT (Visible Light Transmission).'),
             _bulletPoint('Rear side windows: Minimum 20% VLT.'),
-            _bulletPoint('Rear windscreen: Minimum 20% VLT. The use of mirrored or reflective tint is explicitly prohibited.'),
-            const SizedBox(height: 12),
-            const Text(
-              'UPDATED FINES:',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-            ),
+            _bulletPoint('Rear windscreen: Minimum 20% VLT.'),
             const SizedBox(height: 8),
-            _bulletPoint('Fine of thirty thousand dollars (\$30,000) for offenses related to the installation or use of non-compliant tint.'),
-            _bulletPoint('This includes vehicle operators and businesses involved in applying tint contrary to the law.'),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                border: Border.all(color: Colors.red, width: 1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: const Text(
+                '⚠️ IMPORTANT: All mirrored or reflective window tints are illegal under the new regulations.',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Colors.red),
+              ),
+            ),
             const SizedBox(height: 12),
             const Text(
               'AMNESTY PERIOD:',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
             const SizedBox(height: 8),
-            _bulletPoint('A three-month amnesty period will commence with the regulations.'),
-            _bulletPoint('The Guyana Police Force will establish voluntary tint testing sites nationwide.'),
-            _bulletPoint('Vehicle owners can use these sites to test their vehicles and make necessary adjustments without penalty.'),
+            _bulletPoint('A three-month amnesty period begins January 1, 2026.'),
+            _bulletPoint('The Guyana Police Force will establish FREE voluntary tint testing sites nationwide.'),
+            _bulletPoint('Motorists can test the tint level on their windows at designated sites to determine whether adjustments are needed.'),
+            _bulletPoint('Vehicle owners can use these sites to test their vehicles and make necessary adjustments WITHOUT PENALTY.'),
+            _bulletPoint('Locations will be announced publicly.'),
             _bulletPoint('At the conclusion of the amnesty period, full enforcement will commence.'),
+            const SizedBox(height: 12),
+            const Text(
+              'STANDARDISED ENFORCEMENT:',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            const SizedBox(height: 8),
+            _bulletPoint('Approved tint meters, certified by the Guyana National Bureau of Standards, will be used to ensure consistent and transparent enforcement.'),
+            _bulletPoint('Standardised enforcement for everyone ensures fair and clear rules.'),
+            const SizedBox(height: 12),
+            const Text(
+              'FINES FOR NON-COMPLIANCE:',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            const SizedBox(height: 8),
+            _bulletPoint('After the amnesty period, offences involving illegal tint will attract a fine of \$30,000 for drivers and businesses applying unlawful tint.'),
+            _bulletPoint('This includes vehicle operators and businesses involved in applying tint contrary to the law.'),
+            const SizedBox(height: 12),
+            const Text(
+              'SAFER ROADS THROUGH FAIR AND CLEAR RULES:',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'These regulations balance personal convenience with public safety, supporting safer interactions between motorists and law enforcement.',
+              style: TextStyle(fontSize: 11),
+            ),
             const SizedBox(height: 12),
             const Text(
               'NOTE:',
@@ -490,7 +531,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 12),
             const Text(
-              'ELIGIBILITY FOR EXEMPTIONS:',
+              'EXEMPTIONS FOR APPROVED CATEGORIES:',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
             const SizedBox(height: 8),
@@ -517,8 +558,104 @@ class _HomeScreenState extends State<HomeScreen> {
             _bulletPoint('The Minister will consider the application and has the authority to either issue or refuse an exemption certificate.'),
             _bulletPoint('For exemptions based on medical grounds, applications must be supported by certification from a registered medical practitioner.'),
             _bulletPoint('All approved exemptions will be recorded in the digital national tint registry.'),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.orange.shade100,
+                border: Border.all(color: Colors.orange, width: 1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'EXEMPTION CERTIFICATES MUST BE CARRIED',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Colors.orange),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Approved exemption certificates must be kept in the vehicle at all times and are recorded in a national tint registry.',
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTintTestingSites() {
+    return Card(
+      color: Colors.green.shade50,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'SITES FOR TINT EXAMINATION/CERTIFICATION',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.green),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'The Guyana Police Force will establish FREE voluntary tint testing sites at the following locations:',
+              style: TextStyle(fontSize: 11),
+            ),
+            const SizedBox(height: 12),
+            _buildRegionSites('Region 1', 'Port Kaituma, Mabaruma, Moruca Police Stations', 3),
+            _buildRegionSites('Region 2', 'Aurora, Charity, Anna Regina, Suddie Police Stations', 4),
+            _buildRegionSites('Region 3', 'Tuschen, Leonora, Den Amstel, Vreed-en-Hoop, La Grange, Wales, Parfaite Harmony Stations', 7),
+            _buildRegionSites('Region 4A', 'East La Penitence, Brickdam, Traffic HQ, Ruimveldt, Turkeyen Police Stations', 5),
+            _buildRegionSites('Region 4B', 'Providence, Farm-Hertselling, Diamond, Grove Stations, Madewini Outpost, Highway Patrol Base', 6),
+            _buildRegionSites('Region 4C', 'Sparendaam, Beterverwagting, Vigilance, Cove & John, Mahaica Stations', 5),
+            _buildRegionSites('Region 5', 'Mahaicony, Weldaad, Fort Wellington, Blairmont Stations', 4),
+            _buildRegionSites('Region 6', 'New Amsterdam (Central), Albion, #51, Whim, Springlands Stations', 5),
+            _buildRegionSites('Region 7', 'Bartica Police Station', 1),
+            _buildRegionSites('Region 8', 'Mahdia Police Station', 1),
+            _buildRegionSites('Region 9', 'Lethem, Annai, Aishalton Police Stations', 3),
+            _buildRegionSites('Region 10', 'McKenzie, Wismar, Mabura Police Stations', 3),
+            const SizedBox(height: 12),
+            const Text(
+              'Total: 47 Tint Testing Sites Nationwide',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Colors.green),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRegionSites(String region, String sites, int count) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 80,
+            child: Text(
+              region,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              sites,
+              style: const TextStyle(fontSize: 10),
+            ),
+          ),
+          SizedBox(
+            width: 60,
+            child: Text(
+              '($count sites)',
+              style: const TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
       ),
     );
   }
