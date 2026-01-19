@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> _generatePdf() async {
+  Future<void> _printApplication() async {
     if (!_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -284,13 +284,71 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await PdfService.generateAndHandlePdf(_formData);
-      await StorageService.saveCompletedForm(_formData);
+      await PdfService.printPdf(_formData);
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('PDF generated successfully'),
+            content: Text('Print dialog opened'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to print: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  Future<void> _generatePdf({bool printAfterSave = false}) async {
+    if (!_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill all required fields correctly'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    _updateFormData();
+
+    if (!_formData.isValid()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please complete all required sections including signature'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+      if (printAfterSave) {
+        await PdfService.generateSaveAndPrint(_formData);
+      } else {
+        await PdfService.generateAndHandlePdf(_formData);
+      }
+      await StorageService.saveCompletedForm(_formData);
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(printAfterSave 
+              ? 'PDF saved and print dialog opened' 
+              : 'PDF generated successfully'),
             backgroundColor: Colors.green,
           ),
         );
@@ -960,22 +1018,54 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildActionButtons() {
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed: _saveDraft,
-            icon: const Icon(Icons.save),
-            label: const Text('Save Draft'),
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: OutlinedButton.icon(
+                onPressed: _saveDraft,
+                icon: const Icon(Icons.save),
+                label: const Text('Save Draft'),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: _generatePdf,
+                icon: const Icon(Icons.picture_as_pdf),
+                label: const Text('Generate PDF'),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: ElevatedButton.icon(
-            onPressed: _generatePdf,
-            icon: const Icon(Icons.picture_as_pdf),
-            label: const Text('Generate PDF'),
-          ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: _printApplication,
+                icon: const Icon(Icons.print),
+                label: const Text('Print Application'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () => _generatePdf(printAfterSave: true),
+                icon: const Icon(Icons.save_alt),
+                label: const Text('Save & Print'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

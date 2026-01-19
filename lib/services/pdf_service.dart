@@ -8,8 +8,8 @@ import '../models/waiver_form_model.dart';
 
 /// Service for generating and handling PDF documents
 class PdfService {
-  /// Generates a PDF and handles it (download on web, share on mobile/desktop)
-  static Future<void> generateAndHandlePdf(WaiverFormModel form) async {
+  /// Generates PDF document bytes
+  static Future<Uint8List> _generatePdfBytes(WaiverFormModel form) async {
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -34,12 +34,44 @@ class PdfService {
       ),
     );
 
-    final bytes = await pdf.save();
+    return await pdf.save();
+  }
+
+  /// Generates a PDF and handles it (download on web, share on mobile/desktop)
+  static Future<void> generateAndHandlePdf(WaiverFormModel form) async {
+    final bytes = await _generatePdfBytes(form);
     final fileName = 'Tint_Waiver_Application_${form.lastName}.pdf';
 
     await Printing.sharePdf(
       bytes: bytes,
       filename: fileName,
+    );
+  }
+
+  /// Generates a PDF and opens print dialog
+  static Future<void> printPdf(WaiverFormModel form) async {
+    final bytes = await _generatePdfBytes(form);
+    final fileName = 'Tint_Waiver_Application_${form.lastName}.pdf';
+
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => bytes,
+    );
+  }
+
+  /// Generates a PDF, saves it, and prints it
+  static Future<void> generateSaveAndPrint(WaiverFormModel form) async {
+    final bytes = await _generatePdfBytes(form);
+    final fileName = 'Tint_Waiver_Application_${form.lastName}.pdf';
+
+    // Save/Share the PDF
+    await Printing.sharePdf(
+      bytes: bytes,
+      filename: fileName,
+    );
+
+    // Also open print dialog
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => bytes,
     );
   }
 
