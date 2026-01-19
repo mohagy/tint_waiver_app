@@ -9,7 +9,7 @@ A Flutter web application for submitting tint waiver applications to the Ministr
 - Digital signature support
 - PDF generation
 - Form validation and draft saving
-- Information about Motor Vehicles and Road Traffic (Tint) Regulations 2025
+- Information about Motor Vehicles and Road Traffic (Tint) Regulations 2026
 - Exemption eligibility and application process details
 
 ## Requirements

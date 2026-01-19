@@ -80,7 +80,7 @@ class PdfService {
         pw.Bullet(text: 'Original Documents for verification.'),
         pw.SizedBox(height: 5),
         pw.Text(
-          'IMPORTANT: Permits are valid for six (6) months. Processing time is 3-5 working days.',
+          'IMPORTANT: Exemption certificates for individuals are valid for two (2) years from date of issue or renewal. Processing time is 3-5 working days.',
           style: pw.TextStyle(fontSize: 9, fontStyle: pw.FontStyle.italic),
         ),
       ],
